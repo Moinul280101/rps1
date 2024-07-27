@@ -4,7 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>rock-paper-scissors</title>
-    <link rel="stylesheet" href="/style.css">
+    <style>
+        *{
+    margin: 0;
+    padding: 0;
+}
+h1{
+    background-color: blue;
+    text-align: center;
+    color: white;
+    height: 5rem;
+    line-height: 5rem;
+}
+.choise:hover{
+    opacity: 0.5;
+    cursor: pointer;
+    background-color: black;
+}
+.choise{
+    height: 165px;
+    width: 165px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+img{
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+
+}
+.choises{
+display: flex;
+justify-content: center;
+margin-top: 7rem;
+align-items: center;
+gap: 3rem;
+}
+.score-board{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    font-size: 2rem;
+    gap: 5rem;
+    margin-top: 3rem;
+}
+#user,#computer{
+font-size: 4rem;
+}
+.message-con{
+    margin-top: 5rem;
+    text-align: center;
+}
+#message{
+    margin-top: 5rem;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-size: 2rem;
+    display: inline;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+@media only screen and (max-width:600px){
+    h1{
+        background-color: blue;
+        text-align: center;
+        color: white;
+        height: 2rem;
+        line-height: 2rem;
+    }
+    img{
+        height: 100px;
+        width: 100px;
+        object-fit: cover;
+        border-radius: 50%;
+    
+    }
+    .choises{
+        display: flex;
+        justify-content: center;
+        margin-top: 4rem;
+        align-items: center;
+        gap: 1rem;
+        }
+        .choise{
+            height: 125px;
+            width: 125px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .choise:hover{
+            opacity: 0.3;
+            cursor: pointer;
+            background-color: black;
+        }
+}
+
+    </style>
 </head>
 <body>
    <h1>Rock Paper Scissors</h1> 
@@ -33,7 +134,75 @@
    <div class="message-con">
     <p id="message">Play your move</p>
    </div>
-   <script src="/first.js"></script>
+   <script>
+    let userScore=0;
+let compScore=0;
+
+const choices = document.querySelectorAll(".choise");
+const mess=document.querySelector("#message");
+const userpara=document.querySelector("#user");
+const comppara=document.querySelector("#computer");
+const gencompchoise=()=>{
+let op=["rock","paper","scissors"];
+ const randidx=Math.floor(Math.random()*3);
+ return op[randidx];
+};
+drawGame=()=>{
+    console.log("game was draw.");
+    message.innerText="game draw try again!";
+    message.style.background="black"
+};
+showwinner=(userWin)=>{
+if(userWin){
+    userScore++;
+    userpara.innerText=  userScore;
+    message.innerText="you win";
+    message.style.background="green";
+}
+else{
+    compScore++;
+    comppara.innerText=compScore;
+    message.innerText="you lost";
+    message.style.background="red";
+}
+}
+
+
+const playGame=(userchoise)=>{
+console.log( "userchoise",userchoise);
+const compchoise=gencompchoise();
+console.log( "compchoise",compchoise);
+if(userchoise === compchoise){
+    drawGame();
+}else{
+ let   userWin=true;
+ if(userchoise==="rock"){
+    userWin= compchoise==="paper"?false:true;
+ }else if(userchoise===paper){
+    userWin= compchoise==="scissors"?false:true;
+ }else{
+    userWin= compchoise==="rock"?false:true;
+ }
+ showwinner( userWin)
+}
+};
+
+choices.forEach((choise)=>{
+    choise.addEventListener("click",()=>{
+        const userchoise=choise.getAttribute("id")
+       playGame(userchoise);
+    });
+});
+
+
+
+
+
+
+
+
+
+   </script>
 </body>
 </html>
       
